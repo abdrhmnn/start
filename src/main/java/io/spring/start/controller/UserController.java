@@ -28,7 +28,9 @@ public class UserController {
 
   @GetMapping
   public String index(Model model) {
-    model.addAttribute("users", userService.get());
+    // model.addAttribute("users", userService.getAllByRole(3));
+    model.addAttribute("usersWithDTO", userService.getUsernameAndPassword(3));
+    model.addAttribute("usersWithNative", userService.getDataWithNativeQuery(3));
     return "user/index";
   }
 

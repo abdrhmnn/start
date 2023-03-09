@@ -36,4 +36,21 @@ public class UserServiceImpl implements IUserService {
     userRepository.deleteById(id);
     return userRepository.findById(id).isPresent();
   }
+
+  @Override
+  public List<User> getAllByRole(Integer id) {
+    // return userRepository.getAllByRole(id).stream().filter(x ->
+    // x.getRole().getId() == id).toList();
+    return userRepository.getAllByRole(id);
+  }
+
+  @Override
+  public List<io.spring.start.dto.User> getUsernameAndPassword(Integer role_id) {
+    return userRepository.getUsernameAndPassword(role_id);
+  }
+
+  @Override
+  public List<User> getDataWithNativeQuery(Integer role_id) {
+    return userRepository.getAllUserWithNativeQuery(role_id);
+  }
 }

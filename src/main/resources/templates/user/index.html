@@ -40,23 +40,25 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>User ID</th>
+        <!-- <th>User ID</th> -->
         <th>Username</th>
-        <th>Role Name</th>
-        <th>Action</th>
+        <th>Password</th>
+        <!-- <th>Role Name</th> -->
+        <!-- <th>Action</th> -->
       </tr>
     </thead>
     <tbody>
-      <tr th:each="user: ${users}">
-        <td th:text="${user.id}" />
+      <tr th:each="user: ${usersWithNative}">
+        <!-- <td th:text="${user.id}" /> -->
         <td th:text="${user.username}" />
-        <td th:each="role: ${user.role}">
+        <td th:text="${user.password}" />
+        <!-- <td th:each="role: ${user.role}">
           <li style="list-style-type: none;" th:text="${role.nama}" />
-        </td>
-        <td>
+        </td> -->
+        <!-- <td>
           <a th:href="@{/user/delete/{id} (id = ${user.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
           <a th:href="@{/user/form-user/{id} (id = ${user.id})}" class="btn btn-warning">Edit</a>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </table>
