@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +24,15 @@ public class User {
   @Column(name = "password", nullable = false, length = 100)
   private String password;
 
-  @ManyToOne
   // untuk menghubungkan tabel dengan relasi nya nama field
+  @ManyToOne
   @JoinColumn(name = "role_id", nullable = false)
   private Role role;
+
+  // hubungan dengan tabel employee
+  @OneToOne
+  @JoinColumn(name = "id", nullable = false)
+  private Employee employee;
 
   public void setId(String idUser) {
     this.idUser = idUser;
@@ -58,5 +64,13 @@ public class User {
 
   public Role getRole() {
     return this.role;
+  }
+
+  public Employee getEmployee() {
+    return employee;
+  }
+
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 }
