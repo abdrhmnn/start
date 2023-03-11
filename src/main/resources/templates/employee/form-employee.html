@@ -12,30 +12,26 @@
 <body>
   <div class="container">
     <h4 class="mt-4 mb-4">Insert Data User</h4>
-    <form method="post" th:action="@{/user/save}" th:object="${user}">
+    <form method="post" th:action="@{/employee/save}" th:object="${employee}">
+      <input type="hidden" id="id" th:field="*{id}">
       <div class="row">
         <div class="mb-3 col-md-6">
-          <label for="id" class="form-label">ID User</label>
-          <input type="text" class="form-control" id="id" th:field="*{id}" required placeholder="Insert ID User" autocomplete="off">
+          <label for="fullname" class="form-label">Fullname</label>
+          <input type="text" class="form-control" id="fullname" th:field="*{fullname}" required placeholder="Insert your fullname" autocomplete="off">
         </div>
 
         <div class="mb-3 col-md-6">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" th:field="*{username}" required placeholder="Insert your username" autocomplete="off">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" th:field="*{email}" required placeholder="Insert your email" autocomplete="off">
         </div>
       </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" th:field="*{password}" required placeholder="Insert your password" autocomplete="off">
-      </div>
-
-      <div class="mb-3">
+      <div class="mb-3" th:object="${user}">
         <label for="role" class="mb-2">Role name :</label>
         <select class="form-select" th:field="*{role}">
           <option value="" selected hidden>-- Select your role --</option>
           <th:block th:each="role: ${roles}">
-            <option th:value="${role.id}" th:text="${role.nama}"/>
+            <option th:value="${role.id}" th:text="${role.name}"/>
           </th:block>
         </select>
       </div>
@@ -45,7 +41,7 @@
           <button type="submit" class="btn btn-success">Submit</button>
         </div>
         <div>
-          <a th:href="@{/user}" class="btn btn-outline-danger">Back</a>
+          <a th:href="@{/employee}" class="btn btn-outline-danger">Back</a>
         </div>
       </div>
     </form>

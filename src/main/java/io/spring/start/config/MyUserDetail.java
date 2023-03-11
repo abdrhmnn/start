@@ -35,9 +35,9 @@ public class MyUserDetail implements UserDetails, UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     // object data akan di passing ke constructor myuserdetails
-    io.spring.start.dto.Login data = managementRepository.Login(username);
+    io.spring.start.dto.Login data = managementRepository.Login(email);
     return new MyUserDetail(data);
   }
 

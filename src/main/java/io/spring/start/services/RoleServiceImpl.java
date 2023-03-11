@@ -9,7 +9,6 @@ import io.spring.start.repositories.IRoleRepository;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
-  // LINE 12 - 17 NAMANYA DEPEDENCY INJECTION
   private IRoleRepository roleRepository;
 
   public RoleServiceImpl(IRoleRepository roleRepository) {

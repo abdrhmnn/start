@@ -11,7 +11,7 @@ import io.spring.start.model.Role;
 import io.spring.start.services.IRoleService;
 
 @Controller
-@RequestMapping("/role") // path url
+@RequestMapping("/role")
 public class RoleController {
   private IRoleService roleService;
 
@@ -19,12 +19,10 @@ public class RoleController {
     this.roleService = roleService;
   }
 
-  // index -> Get
   @GetMapping
   public String index(Model model) {
     model.addAttribute("roles", roleService.get());
 
-    // return path view nya
     return "role/index";
   }
 

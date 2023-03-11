@@ -12,6 +12,4 @@ public interface IRoleService {
   public Boolean save(Role role);
 
   public Boolean delete(Integer id);
-
-  // bisa menambahkan method di luar dari CRUD
 }

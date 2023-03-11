@@ -21,7 +21,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public User get(String id) {
+  public User get(Integer id) {
     return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("data tidak ditemukan!"));
   }
 
@@ -32,25 +32,26 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public Boolean delete(String id) {
+  public Boolean delete(Integer id) {
     userRepository.deleteById(id);
     return userRepository.findById(id).isPresent();
   }
 
-  @Override
-  public List<User> getAllByRole(Integer id) {
-    // return userRepository.getAllByRole(id).stream().filter(x ->
-    // x.getRole().getId() == id).toList();
-    return userRepository.getAllByRole(id);
-  }
+  // @Override
+  // public List<User> getAllByRole(Integer id) {
+  // // return userRepository.getAllByRole(id).stream().filter(x ->
+  // // x.getRole().getId() == id).toList();
+  // return userRepository.getAllByRole(id);
+  // }
 
-  @Override
-  public List<io.spring.start.dto.User> getUsernameAndPassword(Integer role_id) {
-    return userRepository.getUsernameAndPassword(role_id);
-  }
+  // @Override
+  // public List<io.spring.start.dto.User> getUsernameAndPassword(Integer role_id)
+  // {
+  // return userRepository.getUsernameAndPassword(role_id);
+  // }
 
-  @Override
-  public List<User> getDataWithNativeQuery(Integer role_id) {
-    return userRepository.getAllUserWithNativeQuery(role_id);
-  }
+  // @Override
+  // public List<User> getDataWithNativeQuery(Integer role_id) {
+  // return userRepository.getAllUserWithNativeQuery(role_id);
+  // }
 }

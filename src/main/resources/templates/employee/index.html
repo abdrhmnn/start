@@ -26,7 +26,7 @@
                 <a class="nav-link" aria-current="page" th:href="@{role}">Role</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" th:href="@{user}">User</a>
+                <a class="nav-link" aria-current="page" th:href="@{employee}">User</a>
               </li>
             </ul>
           </div>
@@ -36,29 +36,25 @@
   </nav>
   <!-- akhir navbar -->
   
-  <a th:href="@{user/form-user}" class="btn btn-success mt-3 mb-3">Create</a>
+  <a th:href="@{employee/form-employee}" class="btn btn-success mt-3 mb-3">Create</a>
   <table class="table table-striped">
     <thead>
       <tr>
-        <!-- <th>User ID</th> -->
-        <th>Username</th>
-        <th>Password</th>
-        <!-- <th>Role Name</th> -->
-        <!-- <th>Action</th> -->
+        <th>Fullname</th>
+        <th>Email</th>
+        <th>Role Name</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr th:each="user: ${usersWithNative}">
-        <!-- <td th:text="${user.id}" /> -->
-        <td th:text="${user.username}" />
-        <td th:text="${user.password}" />
-        <!-- <td th:each="role: ${user.role}">
-          <li style="list-style-type: none;" th:text="${role.nama}" />
-        </td> -->
-        <!-- <td>
-          <a th:href="@{/user/delete/{id} (id = ${user.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-          <a th:href="@{/user/form-user/{id} (id = ${user.id})}" class="btn btn-warning">Edit</a>
-        </td> -->
+      <tr th:each="employee: ${employees}">
+        <td th:text="${employee.fullname}" />
+        <td th:text="${employee.email}" />
+        <td th:text="${employee.user.role.name}" />
+        <td>
+          <a th:href="@{/employee/delete/{id} (id = ${employee.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+          <a th:href="@{/employee/form-employee/{id} (id = ${employee.id})}" class="btn btn-warning">Edit</a>
+        </td>
       </tr>
     </tbody>
   </table>
