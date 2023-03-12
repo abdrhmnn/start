@@ -20,7 +20,7 @@ public class MyUserDetail implements UserDetails, UserDetailsService {
   @Autowired
   private IManagementRepository managementRepository;
 
-  private String username;
+  private String email;
   private String password;
   private GrantedAuthority authority;
 
@@ -29,8 +29,8 @@ public class MyUserDetail implements UserDetails, UserDetailsService {
   }
 
   public MyUserDetail(Login user) {
-    username = user.getEmail();
-    password = user.getPassword();
+    this.email = user.getEmail();
+    this.password = user.getPassword();
     authority = new SimpleGrantedAuthority(user.getRole());
   }
 
@@ -55,7 +55,7 @@ public class MyUserDetail implements UserDetails, UserDetailsService {
 
   @Override
   public String getUsername() {
-    return username;
+    return email;
   }
 
   @Override

@@ -3,10 +3,14 @@ package io.spring.start.dto;
 public class Login {
   private String email, password, role;
 
-  public Login(String email, String password, String role) {
+  public Login() {
+    super();
+  }
+
+  public Login(String email, String password) {
     this.email = email;
     this.password = password;
-    this.role = role;
+    // this.role = role;
   }
 
   public String getEmail() {
