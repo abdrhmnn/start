@@ -15,15 +15,13 @@
       <div class="d-flex align-items-center justify-content-center flex-column" style="height: 500px;">
         <h5 class="mb-3">Please Sign In</h5>
 
-        <div class="alert alert-info mb-4 p-2 w-50 text-center" role="alert" th:if="${message}" th:text="${message}"></div>
-
         <div class="form-outline mb-4 w-50">
-          <label class="form-label" for="email">Email</label>
+          <label class="form-label" for="email">Email<span class="text-danger fw-bold">*</span></label>
           <input type="text" id="email" class="form-control" th:field="*{email}" autocomplete="off" placeholder="Your email address" required />
         </div>
 
         <div class="form-outline mb-3 w-50">
-          <label class="form-label" for="password">Password</label>
+          <label class="form-label" for="password">Password<span class="text-danger fw-bold">*</span></label>
           <input type="password" id="password" class="form-control" th:field="*{password}" autocomplete="off" placeholder="Your password account" required />
         </div>
 

@@ -26,7 +26,7 @@ public class Employee {
   @Column(name = "email", nullable = false, length = 100)
   private String email;
 
-  @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToOne(mappedBy = "Employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private User user;
 
   public Integer getId() {

@@ -10,42 +10,40 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import io.spring.start.dto.Login;
+import io.spring.start.model.User;
 import io.spring.start.repositories.IManagementRepository;
 
-// untuk get data
+@Service
 public class MyUserDetail implements UserDetails, UserDetailsService {
 
   @Autowired
   private IManagementRepository managementRepository;
-
-  private String email;
+  private String username;
   private String password;
   private GrantedAuthority authority;
 
   public MyUserDetail() {
-    super();
   }
 
-  public MyUserDetail(Login user) {
-    this.email = user.getEmail();
+  public MyUserDetail(User user) {
+    this.username = user.getEmployee().getEmail();
     this.password = user.getPassword();
-    authority = new SimpleGrantedAuthority(user.getRole());
+    this.authority = new SimpleGrantedAuthority(user.getRole().getName());
   }
 
   @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    // object data akan di passing ke constructor myuserdetails
-    io.spring.start.dto.Login data = managementRepository.Login(email);
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    io.spring.start.model.User data = managementRepository.Login(username);
     return new MyUserDetail(data);
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-    grantedAuthorities.add(authority);
-    return getAuthorities();
+    Set<GrantedAuthority> grantedAuthority = new HashSet<>();
+    grantedAuthority.add(authority);
+    return grantedAuthority;
   }
 
   @Override
@@ -55,7 +53,7 @@ public class MyUserDetail implements UserDetails, UserDetailsService {
 
   @Override
   public String getUsername() {
-    return email;
+    return username;
   }
 
   @Override

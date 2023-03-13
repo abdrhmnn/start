@@ -25,9 +25,9 @@ public class AppSecurityConfig {
       throws Exception {
     httpSecurity.csrf().disable().authorizeRequests(request -> {
       try {
-        request.antMatchers("/employee/**").permitAll()
-            .antMatchers("/role/**").permitAll()
-            .antMatchers("/user/**").permitAll()
+        request.antMatchers("/user/**").permitAll()
+            .antMatchers("/employee/**").hasAuthority("Administrator")
+            .antMatchers("/role/**").hasAuthority("User")
             .anyRequest().authenticated()
             .and()
             .formLogin()
@@ -35,7 +35,8 @@ public class AppSecurityConfig {
             .and()
             .httpBasic()
             .and()
-            .logout();
+            .logout()
+            .logoutSuccessUrl("/user/login");
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

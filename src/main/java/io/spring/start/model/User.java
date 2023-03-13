@@ -20,11 +20,11 @@ public class User {
 
   @ManyToOne
   @JoinColumn(name = "role_id", nullable = false)
-  private Role role;
+  private Role Role;
 
   @OneToOne
   @JoinColumn(name = "id", nullable = false)
-  private Employee employee;
+  private Employee Employee;
 
   public void setId(Integer id) {
     this.id = id;
@@ -43,18 +43,18 @@ public class User {
   }
 
   public Employee getEmployee() {
-    return employee;
+    return Employee;
   }
 
   public void setEmployee(Employee employee) {
-    this.employee = employee;
+    this.Employee = employee;
   }
 
   public Role getRole() {
-    return role;
+    return Role;
   }
 
   public void setRole(Role role) {
-    this.role = role;
+    this.Role = role;
   }
 }
