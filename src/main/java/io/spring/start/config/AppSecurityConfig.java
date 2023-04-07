@@ -47,6 +47,10 @@ public class AppSecurityConfig {
   // encrypt
   @Bean
   public PasswordEncoder passwordEncoder() {
+
+    // BCrypt yaitu proses hashing dari text ke cyper text
+    // salah satu fitur di BCrypt yaitu SALT (kunci) utk mengubah hasil dari hashing
+    // nya berbeda - beda
     return new BCryptPasswordEncoder();
   }
 }

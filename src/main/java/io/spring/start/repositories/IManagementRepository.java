@@ -19,6 +19,8 @@ public interface IManagementRepository extends JpaRepository<Employee, Integer> 
   // JOIN u.Employee e ON u.id == e.id
   // WHERE e.email == :email
   // """)
+
+  // tanda ? berfungsi untuk mapping parameter yg sesuai dgn urutannya
   @Query(value = "select u, r from User u join u.Employee e join u.Role r where email = ?1")
   public User Login(String email);
 }

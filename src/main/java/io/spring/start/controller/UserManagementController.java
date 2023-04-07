@@ -2,28 +2,20 @@ package io.spring.start.controller;
 
 import java.security.Principal;
 
-import javax.naming.AuthenticationException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.spring.start.config.AppSecurityConfig;
 import io.spring.start.dto.ChangePassword;
+import io.spring.start.dto.ForgetPasssword;
 import io.spring.start.dto.Login;
 import io.spring.start.model.Employee;
 import io.spring.start.model.Role;
@@ -106,17 +98,41 @@ public class UserManagementController {
   public String saveChangePassword(ChangePassword cp, Principal principal) {
     io.spring.start.model.User data = managementRepository.Login(principal.getName());
     Boolean matchingPassword = passwordEncoder.matches(cp.getOldPassword(), data.getPassword());
-    Role role = new Role();
-    role.setId(data.getRole().getId());
     if (matchingPassword) {
-      User user = new User();
-      user.setId(data.getId());
+      User user = userService.get(data.getId());
       user.setPassword(passwordEncoder.encode(cp.getNewPassword()));
-      user.setRole(role);
       userService.save(user);
       return "redirect:/";
     } else {
       return "redirect:/user/change-password";
     }
+  }
+
+  // forget password
+  @GetMapping("forget-password")
+  public String forgetPassword(Model model) {
+    model.addAttribute("employee", new ForgetPasssword());
+
+    return "user-management/forget-password";
+  }
+
+  @PostMapping("forget-password/save")
+  public String forgetPasswordSave(Model model, ForgetPasssword forgetPasssword) {
+    User data = managementRepository.Login(forgetPasssword.getEmail());
+    if (data != null) {
+      if (forgetPasssword.getNewPassword() == null) {
+        if (data.getEmployee().getEmail().equals(forgetPasssword.getEmail())) {
+          model.addAttribute("reset", forgetPasssword);
+          return "user-management/update-password";
+        }
+      } else if (forgetPasssword.getNewPassword().equals(forgetPasssword.getConfirmationPassword())) {
+        User user = userService.get(data.getId());
+        user.setPassword(passwordEncoder.encode(forgetPasssword.getNewPassword()));
+        userService.save(user);
+        return "redirect:/user-management/login";
+      }
+    }
+
+    return "redirect:/user-management/forget-password";
   }
 }
